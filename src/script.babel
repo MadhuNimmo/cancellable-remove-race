@@ -1,0 +1,75 @@
+
+class List extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+    };
+  }
+  
+  handleRemove = (index) => () => {
+    console.log(index);
+    let {list} = this.state;
+    list.splice(index, 1);
+    this.setState({list});
+  }
+  
+  render() {
+    const {list} = this.state;
+    return (
+      <div>
+        <ol>
+          { list.map( (name, index) => {
+            return (
+              <Item key={name} onDestroy={this.handleRemove(index)}>{name}</Item>
+            );
+          } ) }
+        </ol>
+      </div>
+    );
+  }
+}
+
+class Item extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timeoutID: null
+    };
+  }
+  
+  handleRemoveClick = () => {
+    const {onDestroy} = this.props;
+    const timeoutID = setTimeout(onDestroy, 4000);
+    this.setState({timeoutID});
+  }
+  
+  handleVanishingClick = () => {
+    const {timeoutID} = this.state;
+    clearTimeout(timeoutID);
+    this.setState({timeoutID: null});
+  }
+  
+  render() {
+    const {children, onDestroy} = this.props;
+    const {timeoutID} = this.state;
+    
+    if (timeoutID) {
+      return (<li class="vanishing" onClick={this.handleVanishingClick}>{children}</li>);
+    } else {
+      return (
+        <li>
+          {children}
+          <a class="remove" onClick={this.handleRemoveClick} href="#">x</a>
+        </li>
+      );
+    }
+  }
+}
+
+const Demo = <div><List /></div>;
+
+ReactDOM.render(
+  Demo,
+  document.getElementById('root')
+);
