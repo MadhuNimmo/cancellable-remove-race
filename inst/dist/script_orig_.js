@@ -40,14 +40,14 @@ var List = /*#__PURE__*/function (_React$Component) {
     var list = this.state.list;
     return /*#__PURE__*/(
       React.createElement("div", null, /*#__PURE__*/
-        React.createElement("ol", null, list.map(function (name, index) {
-          return /*#__PURE__*/(
-            React.createElement(Item, {
-              key: name,
-              onDestroy: _this2.handleRemove(index)
-            }, name)
-          );
-        })))
+      React.createElement("ol", null, list.map(function (name, index) {
+        return /*#__PURE__*/(
+          React.createElement(Item, {
+            key: name,
+            onDestroy: _this2.handleRemove(index)
+          }, name)
+        );
+      })))
     );
   };
   return List;
@@ -90,11 +90,11 @@ var Item = /*#__PURE__*/function (_React$Component2) {
     } else {
       return /*#__PURE__*/(
         React.createElement("li", null, children, /*#__PURE__*/
-          React.createElement("a", {
-            "class": "remove",
-            onClick: this.handleRemoveClick,
-            href: "#"
-          }, "x"))
+        React.createElement("a", {
+          "class": "remove",
+          onClick: this.handleRemoveClick,
+          href: "#"
+        }, "x"))
       );
     }
   };
